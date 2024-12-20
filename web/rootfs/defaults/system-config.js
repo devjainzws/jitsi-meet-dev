@@ -14,7 +14,13 @@
 {{ $JVB_PREFER_SCTP := .Env.JVB_PREFER_SCTP | default "1" | toBool -}}
 
 {{ join "\n" (splitList "\\n" $CONFIG_PREFIX) }}
-var config = {};
+var config = {
+    // Other configurations...
+    websocket: {
+        url: 'wss://jitsi-meet-dev.onrender.com/xmpp-websocket',
+    },
+    // Other configurations...
+};
 
 config.hosts = {};
 config.hosts.domain = '{{ $XMPP_DOMAIN }}';
