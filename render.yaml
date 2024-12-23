@@ -32,7 +32,7 @@ services:
         path: /usr/share/jitsi-meet/load-test
 
   - name: jitsi-prosody
-    type: worker
+    type: private-service
     env: docker
     dockerfilePath: ./prosody/Dockerfile
     buildCommand: ""
@@ -53,7 +53,7 @@ services:
         path: /prosody-plugins-custom
 
   - name: jitsi-jicofo
-    type: worker
+    type: private-service
     env: docker
     dockerfilePath: ./jicofo/Dockerfile
     buildCommand: ""
@@ -64,7 +64,7 @@ services:
         path: /config
 
   - name: jitsi-jvb
-    type: worker
+    type: private-service
     env: docker
     dockerfilePath: ./jvb/Dockerfile
     buildCommand: ""
