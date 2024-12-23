@@ -4,8 +4,8 @@ services:
     # Frontend
     web:
         build:
-            context: .
-            dockerfile: ./web/Dockerfile
+            context: ./web
+            dockerfile: Dockerfile
         image: jitsi/web:${JITSI_IMAGE_VERSION:-stable-9909}
         restart: ${RESTART_POLICY:-unless-stopped}
         ports:
@@ -194,8 +194,8 @@ services:
     # XMPP server
     prosody:
         build:
-            context: .
-            dockerfile: ./prosody/Dockerfile
+            context: ./prosody
+            dockerfile: Dockerfile
         image: jitsi/prosody:${JITSI_IMAGE_VERSION:-stable-9909}
         restart: ${RESTART_POLICY:-unless-stopped}
         expose:
@@ -344,8 +344,8 @@ services:
     # Focus component
     jicofo:
         build:
-            context: .
-            dockerfile: ./jicofo/Dockerfile
+            context: ./jicofo
+            dockerfile: Dockerfile
         image: jitsi/jicofo:${JITSI_IMAGE_VERSION:-stable-9909}
         restart: ${RESTART_POLICY:-unless-stopped}
         ports:
@@ -433,10 +433,10 @@ services:
             meet.jitsi:
 
     # Video bridge
-    jvb:
+    jvb:    
         build:
-            context: .
-            dockerfile: ./jvb/Dockerfile
+            context: ./jvb
+            dockerfile: Dockerfile
         image: jitsi/jvb:${JITSI_IMAGE_VERSION:-stable-9909}
         restart: ${RESTART_POLICY:-unless-stopped}
         ports:
