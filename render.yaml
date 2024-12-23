@@ -32,7 +32,7 @@ services:
         path: /usr/share/jitsi-meet/load-test
 
   - name: jitsi-prosody
-    type: private-service
+    type: worker
     env: docker
     dockerfilePath: ./prosody/Dockerfile
     buildCommand: ""
@@ -51,37 +51,27 @@ services:
       - type: volume
         name: prosody-plugins
         path: /prosody-plugins-custom
-    ports:
-      - name: xmpp
-        port: 5222
-      - name: prosody-http
-        port: 5280
 
   - name: jitsi-jicofo
-    type: private-service
+    type: worker
     env: docker
     dockerfilePath: ./jicofo/Dockerfile
     buildCommand: ""
     startCommand: ""
-    ports:
-      - name: jicofo-rest
-        port: 8888
     mounts:
       - type: volume
         name: jicofo-config
         path: /config
 
   - name: jitsi-jvb
-    type: private-service
+    type: worker
     env: docker
     dockerfilePath: ./jvb/Dockerfile
     buildCommand: ""
     startCommand: ""
-    ports:
-      - name: jvb-udp
-        port: 10000
-      - name: colibri
-        port: 8080
+    envVars:
+      - key: JVB_PORT
+        value: "10000"
     mounts:
       - type: volume
         name: jvb-config
