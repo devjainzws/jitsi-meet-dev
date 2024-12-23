@@ -1,0 +1,98 @@
+services:
+  - name: jitsi-web
+    type: web
+    env: docker
+    dockerfilePath: ./web/Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: JITSI_IMAGE_VERSION
+        value: stable-9909
+      - key: HTTP_PORT
+        value: "80"
+      - key: HTTPS_PORT
+        value: "443"
+    ports:
+      - name: http
+        port: 80
+      - name: https
+        port: 443
+    mounts:
+      - type: volume
+        name: web-config
+        path: /config
+      - type: volume
+        name: web-crontabs
+        path: /var/spool/cron/crontabs
+      - type: volume
+        name: transcripts
+        path: /usr/share/jitsi-meet/transcripts
+      - type: volume
+        name: web-load-test
+        path: /usr/share/jitsi-meet/load-test
+
+  - name: jitsi-prosody
+    type: private-service
+    env: docker
+    dockerfilePath: ./prosody/Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: XMPP_PORT
+        value: "5222"
+      - key: PROSODY_S2S_PORT
+        value: "5269"
+      - key: PROSODY_HTTP_PORT
+        value: "5280"
+    mounts:
+      - type: volume
+        name: prosody-config
+        path: /config
+      - type: volume
+        name: prosody-plugins
+        path: /prosody-plugins-custom
+    ports:
+      - name: xmpp
+        port: 5222
+      - name: prosody-http
+        port: 5280
+
+  - name: jitsi-jicofo
+    type: private-service
+    env: docker
+    dockerfilePath: ./jicofo/Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    ports:
+      - name: jicofo-rest
+        port: 8888
+    mounts:
+      - type: volume
+        name: jicofo-config
+        path: /config
+
+  - name: jitsi-jvb
+    type: private-service
+    env: docker
+    dockerfilePath: ./jvb/Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    ports:
+      - name: jvb-udp
+        port: 10000
+      - name: colibri
+        port: 8080
+    mounts:
+      - type: volume
+        name: jvb-config
+        path: /config
+
+volumes:
+  - name: web-config
+  - name: web-crontabs
+  - name: transcripts
+  - name: web-load-test
+  - name: prosody-config
+  - name: prosody-plugins
+  - name: jicofo-config
+  - name: jvb-config
