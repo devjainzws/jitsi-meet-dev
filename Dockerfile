@@ -1,1 +1,1 @@
-FROM jitsi/web:stable-9909
+FROM jitsi/prosody:stable-9909
