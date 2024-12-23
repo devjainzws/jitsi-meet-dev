@@ -1,5 +1,5 @@
 ARG JITSI_REPO=jitsi
-ARG BASE_TAG=latest
+ARG BASE_TAG=stable-9909
 
 FROM ${JITSI_REPO}/base:${BASE_TAG} as builder
 
