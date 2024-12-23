@@ -17,19 +17,7 @@ services:
         port: 80
       - name: https
         port: 443
-    mounts:
-      - type: volume
-        name: web-config
-        path: /config
-      - type: volume
-        name: web-crontabs
-        path: /var/spool/cron/crontabs
-      - type: volume
-        name: transcripts
-        path: /usr/share/jitsi-meet/transcripts
-      - type: volume
-        name: web-load-test
-        path: /usr/share/jitsi-meet/load-test
+
 
   - name: jitsi-prosody
     type: worker
@@ -44,9 +32,23 @@ services:
         value: "5269"
       - key: PROSODY_HTTP_PORT
         value: "5280"
-    mounts:
-      - type: volume
-        name: prosody-config
-        path: /config
-      - type: volume
-        name: prosody
+
+
+  - name: jitsi-jicofo
+    type: worker
+    env: docker
+    dockerfilePath: ./jicofo/Dockerfile
+    buildCommand: ""
+    startCommand: ""
+
+
+  - name: jitsi-jvb
+    type: worker
+    env: docker
+    dockerfilePath: ./jvb/Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: JVB_PORT
+        value: "10000"
+
