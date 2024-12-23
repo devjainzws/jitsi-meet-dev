@@ -12,11 +12,6 @@ services:
         value: "80"
       - key: HTTPS_PORT
         value: "443"
-    ports:
-      - name: http
-        port: 80
-      - name: https
-        port: 443
 
 
   - name: jitsi-prosody
